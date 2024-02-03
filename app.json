@@ -1,8 +1,0 @@
-{
-  "name": "sb-shop",
-  "buildpacks": [
-    {
-      "url": "heroku/maven"
-    }
-  ]
-}

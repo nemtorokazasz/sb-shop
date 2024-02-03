@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>dev.ordog</groupId>
 	<artifactId>spring-boot-shop</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-shop</name>
+	<version>1.0.20240201-1</version>
+	<name>webshop</name>
 	<description>spring boot webshop backend</description>
 	<properties>
 		<java.version>17</java.version>
@@ -75,6 +75,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>webshop-v1</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
