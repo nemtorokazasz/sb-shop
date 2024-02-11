@@ -75,7 +75,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>webshop-v1</finalName>
+		<finalName>webshop-v2</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
