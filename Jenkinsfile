@@ -4,7 +4,6 @@ pipeline{
         maven '3.9.6'
     }
     environment {
-        LASTIMAGE = sh(script: 'docker images --filter=reference=\'ordog/sb-shop-be*\' --format \'{{.Repository}}:{{.Tag}}\' | head -n 1', returnStdout: true).trim()
         PROJECT_VERSION = null
     }
     stages{
@@ -31,7 +30,9 @@ pipeline{
         stage('Stop&Remove docker container') {
             steps {
                 script {
-                    if ("${LASTIMAGE}" != "") {
+                    def LASTIMAGE = sh(script: 'docker images --filter=reference=\'ordog/sb-shop-be*\' --format \'{{.Repository}}:{{.Tag}}\' | head -n 1', returnStdout: true).trim()
+
+                    if (LASTIMAGE != null && LASTIMAGE != "null") {
                         def existingContainerId = sh(script: 'docker ps -q -a -f "ancestor=${LASTIMAGE}"', returnStdout: true).trim()
 
                         // Ellenőrizzük, hogy van-e már futó konténer
