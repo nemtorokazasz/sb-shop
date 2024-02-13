@@ -31,18 +31,22 @@ pipeline{
         stage('Stop&Remove docker container') {
             steps {
                 script {
-                    def existingContainerId = sh(script: 'docker ps -q -a -f "ancestor=${LASTIMAGE}"', returnStdout: true).trim()
+                    if (${LASTIMAGE} != null) {
+                        def existingContainerId = sh(script: 'docker ps -q -a -f "ancestor=${LASTIMAGE}"', returnStdout: true).trim()
 
-                    // Ellenőrizzük, hogy van-e már futó konténer
-                    if (existingContainerId) {
-                        echo "Stopping and removing existing container with ID: ${existingContainerId}"
-                        // Próbálja meg leállítani az esetlegesen futó konténert
-                        sh "docker stop ${existingContainerId}"
-                        // Várjon a konténer leállására
-                        sh "docker wait ${existingContainerId}"
-                        // Törölje a leállított konténert
-                        sh "docker rm ${existingContainerId}"
-                    }
+                        // Ellenőrizzük, hogy van-e már futó konténer
+                        if (existingContainerId) {
+                            echo "Stopping and removing existing container with ID: ${existingContainerId}"
+                            // Próbálja meg leállítani az esetlegesen futó konténert
+                            sh "docker stop ${existingContainerId}"
+                            // Várjon a konténer leállására
+                            sh "docker wait ${existingContainerId}"
+                            // Törölje a leállított konténert
+                            sh "docker rm ${existingContainerId}"
+                        }
+                        } else {
+                            echo "lastImage is null, skipping container stopping and removal."
+                        }
                 }
             }
         }
