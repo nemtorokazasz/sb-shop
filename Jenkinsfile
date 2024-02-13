@@ -31,7 +31,7 @@ pipeline{
         stage('Stop&Remove docker container') {
             steps {
                 script {
-                    if (${LASTIMAGE} != null) {
+                    if ("${LASTIMAGE}" != "") {
                         def existingContainerId = sh(script: 'docker ps -q -a -f "ancestor=${LASTIMAGE}"', returnStdout: true).trim()
 
                         // Ellenőrizzük, hogy van-e már futó konténer
